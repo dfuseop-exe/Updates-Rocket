@@ -8,12 +8,14 @@ export class News extends Component {
 
     static defaultProps = {
       country : 'in' ,
-      pageSize : 6
+      pageSize : 6 ,
+      category : 'general'
     }
     
     static propTypes = {
       country : PropTypes.string ,
-      pageSize : PropTypes.number 
+      pageSize : PropTypes.number ,
+      category : PropTypes.string
     } 
 
   Handlenextclick = async () => {
@@ -23,7 +25,7 @@ export class News extends Component {
         Math.ceil(this.state.totalResults / this.props.pageSize)
       )
     ) {
-      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${
         this.state.page + 1
       }&pageSize=${this.props.pageSize}`;
       this.setState({loading : true})
@@ -38,7 +40,7 @@ export class News extends Component {
   };
 
   Handlepreclick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${
       this.state.page - 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({loading : true})
@@ -62,7 +64,7 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=1&pageSize=${this.props.pageSize}`;
     this.setState({loading : true})
     let data = await fetch(url);
     let parsedata = await data.json();
@@ -77,7 +79,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3 ">
-        <h1 className="text-center">Updates-Rocket Top Headlines</h1>
+        <h1 className="text-center"  style={{ margin : "28px"}}>Updates-Rocket Top Headlines</h1>
         {this.state.loading && <Spinner />}
         <div className="row ">
           {!this.state.loading && this.state.articles.map((element) => {
