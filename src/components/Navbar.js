@@ -4,7 +4,7 @@ export class Navbar extends Component {
   render() {
     return (
       <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className={`navbar navbar-expand-lg navbar-${this.props.mode} bg-${this.props.mode}`}>
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             Updates-Rocket
@@ -38,6 +38,11 @@ export class Navbar extends Component {
               <li className="nav-item"><a className="nav-link" href="/about">technology</a></li>
               
             </ul>
+
+            <div className="form-check form-switch">
+                <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onClick={this.props.togglemode}/>
+                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Dark mode enable</label>
+            </div>
             
           </div>
         </div>
