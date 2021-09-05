@@ -107,7 +107,7 @@ export class News extends Component {
           <button
             type="button"
             disabled={this.state.page <= 1}
-            class="btn btn-dark"
+            class={`btn btn-${this.props.mode === 'light' ? 'dark' : 'light'}`}
             onClick={this.Handlepreclick}
           >
             {" "}
@@ -119,7 +119,7 @@ export class News extends Component {
               Math.ceil(this.state.totalResults / this.props.pageSize)
             }
             type="button"
-            class="btn btn-dark"
+            class={`btn btn-${this.props.mode === 'light' ? 'dark' : 'light'}`}
             onClick={this.Handlenextclick}
           >
             Next &rarr;
