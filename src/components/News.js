@@ -13,7 +13,7 @@ export class News extends Component {
     
     static propTypes = {
       country : PropTypes.string ,
-      pageSize : PropTypes.number
+      pageSize : PropTypes.number 
     } 
 
   Handlenextclick = async () => {
