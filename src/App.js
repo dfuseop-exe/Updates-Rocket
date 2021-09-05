@@ -38,7 +38,7 @@ export default class App extends Component {
     return (
       <div>
         <Navbar mode={this.state.mode} togglemode={this.togglemode}/>
-        <News pageSize={6} country='in' category="science"/>
+        <News pageSize={6} country='in' mode={this.state.mode} category="science"/>
       </div>
     )
   }

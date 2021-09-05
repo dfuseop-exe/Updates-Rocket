@@ -96,6 +96,8 @@ export class News extends Component {
                       : "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg"
                   }
                   newsurl={element.url}
+                  
+                  itemmode = {this.props.mode}
                 />
               </div>
             );

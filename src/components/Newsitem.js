@@ -2,23 +2,20 @@ import React, { Component } from "react";
 
 export class Newsitem extends Component {
 
-  myStyle = {
-    color: this.props.mode ==='dark'?'white':'black',
-    backgroundColor: this.props.mode ==='dark'?'#212529':'white' 
-  }
-
   render() {
-      let {title , description ,imageurl ,newsurl} = this.props ;
+      let {title , description ,imageurl ,newsurl, itemmode} = this.props ;
+    
+    console.log(itemmode)
     return (
       <div className="my-3">
-        <div className="card" style={{width: "20rem"}}>
+        <div className={`card bg-${itemmode} text-${itemmode === 'dark'? 'white' : 'dark'}`} style={{width: "20rem"}}>
           <img src={imageurl} className="card-img-top" alt="..."/>
-          <div className="card-body" style={this.myStyle}>
-            <h5 className="card-title" style={this.myStyle}>{title}</h5>
-            <p className="card-text" style={this.myStyle}>
+          <div className="card-body">
+            <h5 className="card-title" >{title}</h5>
+            <p className="card-text">
               {description}
             </p>
-            <a rel="noreferrer" href={newsurl} target="_blank" className="btn btn-sm btn-dark">
+            <a rel="noreferrer" href={newsurl} target="_blank" className={`btn btn-sm btn-${itemmode === 'dark'? 'light' : 'dark'}`}>
               read more
             </a>
           </div>
