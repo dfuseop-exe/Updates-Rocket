@@ -10,7 +10,7 @@ export class Navbar extends Component {
         >
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-              NewsMonkey
+              Updates-Rocket
             </Link>
             <button
               className="navbar-toggler"
