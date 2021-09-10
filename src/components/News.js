@@ -107,6 +107,9 @@ export class News extends Component {
                     }
                     newsurl={element.url}
                     itemmode={this.props.mode}
+                    date = {element.publishedAt}
+                    author = {!element.author ? "Unknown" : element.author}
+                    source = {element.source.name}
                   />
                 </div>
               );
@@ -116,7 +119,7 @@ export class News extends Component {
           <button
             type="button"
             disabled={this.state.page <= 1}
-            class={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`}
+            className={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`}
             onClick={this.Handlepreclick}
           >
             &larr; Previous
@@ -127,7 +130,7 @@ export class News extends Component {
               Math.ceil(this.state.totalResults / this.props.pageSize)
             }
             type="button"
-            class={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`}
+            className={`btn btn-${this.props.mode === "light" ? "dark" : "light"}`}
             onClick={this.Handlenextclick} 
           >
             Next &rarr;
