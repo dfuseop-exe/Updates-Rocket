@@ -11,7 +11,7 @@ import {
 
 export class App extends Component {
 
-  pageSize = 15 
+  pageSize = 9 
 
   togglemode = () => {
     console.log("clicked")
