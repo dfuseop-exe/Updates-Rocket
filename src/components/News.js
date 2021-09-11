@@ -4,6 +4,8 @@ import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+
+
 export class News extends Component {
   static defaultProps = {
     country: "in",
@@ -19,16 +21,21 @@ export class News extends Component {
 
 
   async updatenews(){
+    this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
+    this.props.setProgress(40);
     let parsedata = await data.json();
     console.log(parsedata);
+    this.props.setProgress(80);
     this.setState({
       articles: parsedata.articles,
       totalResults: parsedata.totalResults,
       loading: false,
     });
+
+    this.props.setProgress(100);
   }
 
   Handlenextclick = async () => {
@@ -50,7 +57,7 @@ export class News extends Component {
     this.setState({
       page : this.state.page + 1
     })
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=56c28c132f5a419f867a3ca6727aadfe&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=756fbd905f3a4aa09a2ee5af62339cd9&page=${this.state.page}&pageSize=${this.props.pageSize}`;
    
     let data = await fetch(url);
     let parsedata = await data.json();
