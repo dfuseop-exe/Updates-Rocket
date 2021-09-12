@@ -14,33 +14,37 @@ const News = (props) => {
     const [page, setPage] = useState(1);
     const [totalResults, settotalResults] = useState(0)
 
-    //document.title = `Update-Rocket | ${capitalize(props.category)}`
+  
     const updatenews = async () =>{
-    props.changeProgress(10);
+    props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=756fbd905f3a4aa09a2ee5af62339cd9&page=${page}&pageSize=${props.pageSize}`;
 
     setLoading(true) ;
     
     let data = await fetch(url);
-    props.changeProgress(40);
+    props.setProgress(40);
     let parsedata = await data.json();
     console.log(parsedata);
-    props.changeProgress(80);
+    props.setProgress(80);
 
     setArticles(parsedata.articles);
     settotalResults(parsedata.totalResults);
     setLoading(false);
-    props.changeProgress(100);
+    props.setProgress(100);
   }
 
   useEffect(() => {
-    updatenews(); 
+    document.title = `Update-Rocket | ${capitalize(props.category)}`
+    updatenews();
+    // eslint-disable-next-line 
   }, [])
 
 
   const fetchMoreData = async () => {
+    
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page+1}&pageSize=${props.pageSize}`;
+
     setPage(page + 1)
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pageSize}`;
    
     let data = await fetch(url);
     let parsedata = await data.json();
@@ -57,7 +61,7 @@ const News = (props) => {
 
     return (
       <div className="container my-3 ">
-        <h1 className="text-center" style={{ margin: "28px"}}>
+        <h1 className="text-center" style={{ margin: "28px" , marginTop : "80px"}}>
           {`Update-Rocket - Top ${capitalize(props.category)} Headlines`}
         </h1>
         {loading && <Spinner />}
