@@ -1,113 +1,77 @@
-import React, { Component } from "react";
+import React, { useEffect , useState } from "react";
 import Newsitem from "./Newsitem";
+
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 
 
-export class News extends Component {
-  static defaultProps = {
-    country: "in",
-    pageSize: 6,
-    category: "general",
-  };
+const News = (props) => {
+ 
+    const [articles, setArticles] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [totalResults, settotalResults] = useState(0)
 
-  static propTypes = {
-    country: PropTypes.string,
-    pageSize: PropTypes.number,
-    category: PropTypes.string,
-  };
+    //document.title = `Update-Rocket | ${capitalize(props.category)}`
+    const updatenews = async () =>{
+    props.changeProgress(10);
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=756fbd905f3a4aa09a2ee5af62339cd9&page=${page}&pageSize=${props.pageSize}`;
 
-
-  async updatenews(){
-    this.props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=756fbd905f3a4aa09a2ee5af62339cd9&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
+    setLoading(true) ;
+    
     let data = await fetch(url);
-    this.props.setProgress(40);
+    props.changeProgress(40);
     let parsedata = await data.json();
     console.log(parsedata);
-    this.props.setProgress(80);
-    this.setState({
-      articles: parsedata.articles,
-      totalResults: parsedata.totalResults,
-      loading: false,
-    });
+    props.changeProgress(80);
 
-    this.props.setProgress(100);
+    setArticles(parsedata.articles);
+    settotalResults(parsedata.totalResults);
+    setLoading(false);
+    props.changeProgress(100);
   }
 
-  Handlenextclick = async () => {
-      this.setState({
-        page: this.state.page + 1,
-      });
-      this.updatenews();
-    }
-  
+  useEffect(() => {
+    updatenews(); 
+  }, [])
 
-  Handlepreclick = async () => {
-    this.setState({
-      page: this.state.page - 1,
-    });
-    this.updatenews();
-  };
 
-   fetchMoreData = async () => {
-    this.setState({
-      page : this.state.page + 1
-    })
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+  const fetchMoreData = async () => {
+    setPage(page + 1)
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pageSize}`;
    
     let data = await fetch(url);
     let parsedata = await data.json();
-    console.log(parsedata);
-    this.setState({
-      articles: this.state.articles.concat(parsedata.articles),
-      totalResults: parsedata.totalResults,
-   
-    });
+    
+    setArticles(articles.concat(parsedata.articles));
+    settotalResults(parsedata.totalResults)
+    
   }
 
-  capitalize = (string) => {
+  const capitalize = (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  constructor(props) {
-    //run before render
-    super(props);
-    this.state = {
-      articles: [],
-      loading: true,
-      page: 1,
-      totalResults : 0
-    };
 
-    document.title = `Update-Rocket | ${this.capitalize(this.props.category)}`
-  }
-
-  async componentDidMount() {
-   this.updatenews();
-  }
-
-  render() {
     return (
       <div className="container my-3 ">
         <h1 className="text-center" style={{ margin: "28px"}}>
-          {`Update-Rocket - Top ${this.capitalize(this.props.category)} Headlines`}
+          {`Update-Rocket - Top ${capitalize(props.category)} Headlines`}
         </h1>
-        {this.state.loading && <Spinner />}
+        {loading && <Spinner />}
         
         <InfiniteScroll
-          dataLength={this.state.articles.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.articles.length !== this.state.totalResults}
+          dataLength={articles.length}
+          next={fetchMoreData}
+          hasMore={articles.length !== totalResults}
           loader={<Spinner/>}
         >
 
           <div className="container">
           <div className="row ">
-            {this.state.articles.map((element) => {
+            {articles.map((element) => {
               return <div className="col-md-4" key={element.url}>
                   <Newsitem
                     title={element.title ? element.title : "Default Title"}
@@ -120,7 +84,7 @@ export class News extends Component {
                         : "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg"
                     }
                     newsurl={element.url}
-                    itemmode={this.props.mode}
+                    itemmode={props.mode}
                     date = {element.publishedAt}
                     author = {!element.author ? "Unknown" : element.author}
                     source = {element.source.name}
@@ -134,7 +98,20 @@ export class News extends Component {
         </InfiniteScroll> 
       </div>
     );
-  }
+  
 }
+
+
+News.defaultProps = {
+  country: "in",
+  pageSize: 6,
+  category: "general",
+};
+
+News.propTypes = {
+  country: PropTypes.string,
+  pageSize: PropTypes.number,
+  category: PropTypes.string,
+};
 
 export default News;
