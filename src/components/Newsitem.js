@@ -14,8 +14,8 @@ export class Newsitem extends Component {
           }`}
           style={{ width: "20rem" }}
         >
-          <div>
-          <span className="position-absolute top-0  translate-middle badge rounded-pill bg-danger" style={{left : "84%" , zIndex : '1'}}>{source}</span>
+          <div style={{ display:"flex" , justifyContent : "flex-end" , right : 0 , position : "absolute"}}>
+          <span className="badge rounded-pill bg-danger" >{source}</span>
           </div> 
           <img src={imageurl} className="card-img-top" alt="..." />
           <div className="card-body">

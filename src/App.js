@@ -15,6 +15,8 @@ export class App extends Component {
 
   pageSize = 9 
 
+  apikey = process.env.REACT_APP_NEWS_API;
+
   togglemode = () => {
     console.log("clicked")
 
@@ -61,13 +63,13 @@ export class App extends Component {
         />
         
           <Switch>
-          <Route exact path="/"> <News  setProgress={this.setProgress} key="general" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="general"/> </Route>
-          <Route exact path="/business"> <News  setProgress={this.setProgress} key="business" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="business"/> </Route>
-          <Route exact path="/entertainment"> <News  setProgress={this.setProgress} key="entertainment" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="entertainment"/> </Route>
-          <Route exact path="/health"> <News  setProgress={this.setProgress} key="health" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="health"/> </Route>
-          <Route exact path="/science"> <News  setProgress={this.setProgress} key="science" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="science"/> </Route>
-          <Route exact path="/sports"> <News  setProgress={this.setProgress} key="sports" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="sports"/> </Route>
-          <Route exact path="/technology"> <News  setProgress={this.setProgress} key="technology" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="technology"/> </Route>
+          <Route exact path="/"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="general" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="general"/> </Route>
+          <Route exact path="/business"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="business" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="business"/> </Route>
+          <Route exact path="/entertainment"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="entertainment" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="entertainment"/> </Route>
+          <Route exact path="/health"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="health" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="health"/> </Route>
+          <Route exact path="/science"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="science" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="science"/> </Route>
+          <Route exact path="/sports"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="sports" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="sports"/> </Route>
+          <Route exact path="/technology"> <News  setProgress={this.setProgress} apikey={this.apikey}  key="technology" pageSize={this.pageSize} country="in"  mode={this.state.mode} category="technology"/> </Route>
         </Switch>
         </Router>
       </div>
