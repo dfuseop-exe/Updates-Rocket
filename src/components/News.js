@@ -61,7 +61,7 @@ const News = (props) => {
 
     return (
       <div className="container my-3 ">
-        <h1 className="text-center" style={{ margin: "28px" , marginTop : "80px"}}>
+        <h1 className="text-center" style={{ margin: "28px" , marginTop : "80px" ,fontWeight : 'bold', fontFamily:'Varela'}}>
           {`Update-Rocket - Top ${capitalize(props.category)} Headlines`}
         </h1>
         {loading && <Spinner />}

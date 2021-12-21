@@ -5,11 +5,11 @@ const Navbar = (props) => {
   return (
     <div>
       <nav
-        className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+        className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`} style={{fontFamily : "Montserrat" , fontSize : '18px'}}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            Update-Rocket
+          <Link className="navbar-brand" to="/" style={{fontWeight : 'bold' , color : 'tomato'}}>
+          Update-Rocket
           </Link>
           <button
             className="navbar-toggler"
@@ -23,7 +23,7 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav m-auto  mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link" aria-current="page" to="/">
                   Home
